@@ -1,7 +1,6 @@
 package ch.hslu.ad.Memory;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class MemorySimple implements Memory {
@@ -13,6 +12,9 @@ public class MemorySimple implements Memory {
         this.size = size;
     }
 
+    public int getSize(){
+        return this.size;
+    }
 
     private int getFreeAddress() {
         Allocation lastAllocation = null;
@@ -45,6 +47,11 @@ public class MemorySimple implements Memory {
     @Override
     public void free(Allocation block) {
         allocations.remove(block);
+    }
+
+    @Override
+    public void clear() {
+        allocations.clear();
     }
 
     @Override
