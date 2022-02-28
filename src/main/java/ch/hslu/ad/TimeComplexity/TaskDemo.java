@@ -15,10 +15,11 @@ public class TaskDemo {
         System.out.println("Enter End n");
         int endn = scan.nextInt();
 
-        System.out.println("Task1\tTask2\tTask3");
+        System.out.println("N\tTask1\tTask2\tTask3");
         for(int i = startn; i <= endn; i++){
             Task task = new Task(i);
-            System.out.println(task.getTaskCounters()[0]+"\t\t"+
+            System.out.println(i+"\t\t"+
+                    task.getTaskCounters()[0]+"\t\t"+
                     task.getTaskCounters()[1]+"\t\t"+
                     task.getTaskCounters()[2]);
 

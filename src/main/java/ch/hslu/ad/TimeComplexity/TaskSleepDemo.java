@@ -15,6 +15,7 @@ public class TaskSleepDemo {
         System.out.println("Enter End n");
         int endn = scan.nextInt();
 
+        System.out.println("N\tStartTime\t\tEndTime\t\t\tDuration");
         for(int i = startn; i <= endn; i++){
             TaskSleep taskSleep = null;
             try {
@@ -23,7 +24,8 @@ public class TaskSleepDemo {
                 e.printStackTrace();
                 return;
             }
-            System.out.println(taskSleep.getStartTime()+"\t"+
+            System.out.println(i+"\t"+
+                    taskSleep.getStartTime()+"\t"+
                     taskSleep.getEndTime()+"\t"+
                     taskSleep.duration());
 

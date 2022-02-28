@@ -33,12 +33,12 @@ public final class ZahlenPalindromDemo {
         int numberReversed = 0;
         int tmp;
 
-        if((int)Math.log10(number)+1 != n){
+        if((int)Math.log10(number)+1 != n){ // n und anzahl stellen von number müssen übereinstimmen
             return false;
         }
 
         while(numberForward>0){
-            tmp = numberForward%10;
+            tmp = numberForward%10; // letzte Ziffer holen
             numberReversed = (numberReversed*10) + tmp;
             numberForward = numberForward/10;
         }
