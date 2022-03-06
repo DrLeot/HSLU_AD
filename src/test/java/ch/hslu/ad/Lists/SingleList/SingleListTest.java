@@ -19,7 +19,7 @@ class SingleListTest {
     }
 
     @Test
-    public void testAddOne(){
+    public void testAdd(){
         singleList.add(new Animal("Alpha"));
         singleList.add(new Animal("Beta"));
         singleList.add(new Animal("Gamma"));

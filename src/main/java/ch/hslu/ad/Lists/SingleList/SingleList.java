@@ -17,25 +17,35 @@ public class SingleList {
         size++;
     }
 
+    /**
+     * possitibilities:
+     *  - list is empty
+     *  - remove middled-item
+     *  - remove HEAD
+     *  - remove TAIL
+     * @param animal
+     * @return
+     */
     public boolean remove(Animal animal){
+
         if(isEmpty()){
             return false;
         }
 
-        // HEAD
+
         Node current = head;
         Node prev = head;
+
+        // HEAD
         if(current.getElement().equals(animal)){
             pop();
             return true;
         }
 
-        // MIDDLE
-        while(current.hasNext()){
+        while(current.hasNext()) {
             current = current.getNext();
-            if (current.getElement().equals(animal)){
+            if(animal.equals(current.getElement())) {
                 prev.link(current.getNext());
-                head = prev;
                 size--;
                 return true;
             }
