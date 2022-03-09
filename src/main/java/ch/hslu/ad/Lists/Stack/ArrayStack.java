@@ -1,10 +1,6 @@
 package ch.hslu.ad.Lists.Stack;
 
-import java.util.ArrayList;
-
 public class ArrayStack implements Stack{
-
-    ArrayList<Integer> a = null;
 
     private int index = 0;
     private final String[] stack;
