@@ -39,4 +39,13 @@ class ArrayStackTest {
         arrayStack.pop();
         assertEquals("Vorname", arrayStack.pop());
     }
+
+    @Test
+    public void testPeekUsual(){
+        ArrayStack arrayStack = new ArrayStack(100);
+        arrayStack.push("Nachname");
+        arrayStack.push("Vorname");
+        arrayStack.peek();
+        assertEquals("Vorname",arrayStack.peek());
+    }
 }
