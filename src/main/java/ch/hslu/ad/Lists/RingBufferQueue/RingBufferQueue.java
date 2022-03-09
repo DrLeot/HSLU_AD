@@ -13,7 +13,7 @@ public class RingBufferQueue {
     }
 
     public boolean isEmpty(){
-        return usedSize == 0;
+        return usedSize <= 0;
     }
 
     public boolean isFull(){

@@ -9,7 +9,6 @@ public class RingBufferQueueGeneric<T> {
     private T[] buffer;
 
     public RingBufferQueueGeneric(int size){
-
         this.buffer = (T[]) new Object[size];
     }
 

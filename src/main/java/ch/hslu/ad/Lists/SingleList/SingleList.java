@@ -1,9 +1,12 @@
 package ch.hslu.ad.Lists.SingleList;
 
+import java.util.ArrayList;
+
 public class SingleList {
 
     private int size = 0;
     private Node head;
+
 
     public SingleList(){
         this.head = new Node(null);
@@ -19,10 +22,10 @@ public class SingleList {
 
     /**
      * possitibilities:
-     *  - list is empty
-     *  - remove middled-item
-     *  - remove HEAD
-     *  - remove TAIL
+     *  - list is empty (1)
+     *  - remove middled-item (3)
+     *  - remove HEAD (2)
+     *  - remove TAIL (4)
      * @param animal
      * @return
      */
@@ -31,7 +34,6 @@ public class SingleList {
         if(isEmpty()){
             return false;
         }
-
 
         Node current = head;
         Node prev = head;

@@ -1,9 +1,13 @@
 package ch.hslu.ad.Lists.Stack;
 
+import java.util.ArrayList;
+
 public class ArrayStack implements Stack{
 
+    ArrayList<Integer> a = null;
+
     private int index = 0;
-    private String[] stack;
+    private final String[] stack;
 
     public ArrayStack(int size){
         this.stack = new String[size];
@@ -43,5 +47,14 @@ public class ArrayStack implements Stack{
         String string = stack[index];
         stack[index] = null;
         return string;
+    }
+
+    @Override
+    public String peek() {
+        if(isEmpty()){
+            return null;
+        }
+
+        return stack[index--];
     }
 }

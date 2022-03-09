@@ -23,15 +23,20 @@ class RingBufferQueueTest {
         ringBufferQueue.enqueue('B');
         ringBufferQueue.enqueue('C');
         assertEquals('A',ringBufferQueue.dequeue());
+        assertEquals('B',ringBufferQueue.dequeue());
+        assertEquals('C',ringBufferQueue.dequeue());
+
+        assertThrows(ArithmeticException.class, () ->{
+                ringBufferQueue.dequeue();
+        });
     }
 
     @Test
-    public void testDequeueTwice(){
-        RingBufferQueue ringBufferQueue = new RingBufferQueue(10);
+    public void testDequeueOverflow(){
+        RingBufferQueue ringBufferQueue = new RingBufferQueue(3);
         ringBufferQueue.enqueue('A');
         ringBufferQueue.enqueue('B');
         ringBufferQueue.enqueue('C');
-        ringBufferQueue.dequeue();
-        assertEquals('B',ringBufferQueue.dequeue());
+        assertFalse(ringBufferQueue.enqueue('D'));
     }
 }

@@ -1,5 +1,6 @@
 package ch.hslu.ad.Lists.RingBufferQueue;
 
+import ch.hslu.ad.Lists.SingleList.Animal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
