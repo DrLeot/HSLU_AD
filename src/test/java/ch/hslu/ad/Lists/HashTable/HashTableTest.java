@@ -35,6 +35,7 @@ class HashTableTest {
         HashTable hashTable = new HashTable(10);
         Student student = new Student(1,"Hans","Künzler");
         Student student2 = new Student(58,"Darth","Vader");
+
         hashTable.add(student);
         assertFalse(hashTable.contains(student2));
     }
@@ -49,20 +50,21 @@ class HashTableTest {
     }
 
     @Test
-    public void testHashTableSondierenOnce(){
+    public void testHashTableInsertWithSondierenOnce(){
         HashTable hashTable = new HashTable(10);
         hashTable.add(new Student(1,"Hans","Künzler"));
         hashTable.add(new Student(11,"Karla","Kolumna"));
-        assertEquals("[NULL][NULL][1][11][NULL][NULL][NULL][NULL][NULL][NULL]",hashTable.toString());
+        assertEquals("[NULL][NULL][Hans Künzler -> 1][Karla Kolumna -> 11][NULL][NULL][NULL][NULL][NULL][NULL]",hashTable.toString());
     }
     @Test
-    public void testHashTableSondierenTwice(){
+    public void testHashTableInsertWithSondierenTwice(){
         HashTable hashTable = new HashTable(10);
         hashTable.add(new Student(1,"Hans","Künzler"));
         hashTable.add(new Student(11,"Karla","Kolumna"));
         hashTable.add(new Student(21,"Benjamin","Blümchen"));
-        assertEquals("[NULL][NULL][1][11][21][NULL][NULL][NULL][NULL][NULL]",hashTable.toString());
+        assertEquals("[NULL][NULL][Hans Künzler -> 1][Karla Kolumna -> 11][Benjamin Blümchen -> 21][NULL][NULL][NULL][NULL][NULL]",hashTable.toString());
     }
+
 
     @Test
     public void testHashTableRemove(){
@@ -71,5 +73,31 @@ class HashTableTest {
         hashTable.add(student);
         hashTable.remove(student);
         assertTrue(hashTable.isEmpty());
+    }
+
+    @Test
+    public void testGraveStone(){
+        HashTable hashTable = new HashTable(10);
+        Student student = new Student(1,"Hans","Künzler");
+        hashTable.add(student);
+        hashTable.remove(student);
+        assertEquals("[NULL][NULL][✝][NULL][NULL][NULL][NULL][NULL][NULL][NULL]",hashTable.toString());
+    }
+
+    @Test
+    public void testInsertEndOfArray(){
+        HashTable hashTable = new HashTable(10);
+        Student student = new Student(8,"Hans","Künzler");
+        hashTable.add(student);
+        assertEquals("[NULL][NULL][NULL][NULL][NULL][NULL][NULL][NULL][NULL][Hans Künzler -> 8]",hashTable.toString());
+    }
+
+    @Test
+    public void testInsertBeyondEndOfArray(){
+        HashTable hashTable = new HashTable(10);
+        Student student = new Student(8,"Hans","Künzler");
+        Student student2 = new Student(8,"Freddie","Mercury");
+        hashTable.add(student);
+        assertFalse(hashTable.add(student2));
     }
 }
