@@ -1,12 +1,12 @@
 package ch.hslu.ad.Lists.Stack;
 
-public class ArrayStack implements Stack{
+public class ArrayStack<T> implements Stack<T>{
 
     private int index = 0;
-    private final String[] stack;
+    private final T[] stack;
 
     public ArrayStack(int size){
-        this.stack = new String[size];
+        this.stack = (T[]) new Object[size];
     }
 
     @Override
@@ -25,28 +25,28 @@ public class ArrayStack implements Stack{
     }
 
     @Override
-    public boolean push(String string) {
+    public boolean push(T element) {
         if(isFull()){
             return false; // Stack is full
         }
-        stack[index] = string;
+        stack[index] = element;
         index += 1;
         return true;
     }
 
     @Override
-    public String pop() {
+    public T pop() {
         if(isEmpty()){
             return null;
         }
         index -= 1;
-        String string = stack[index];
+        T element = stack[index];
         stack[index] = null;
-        return string;
+        return element;
     }
 
     @Override
-    public String peek() {
+    public T peek() {
         if(isEmpty()){
             return null;
         }
