@@ -8,6 +8,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HashTableTest {
 
+    @Test
+    public void testIsFull(){
+        HashTable hashTable = new HashTable(3);
+        hashTable.add(new Student(1,"Tick","Ente"));
+        hashTable.add(new Student(2,"Trick","Ente"));
+        hashTable.add(new Student(3,"Track","Ente"));
+        assertTrue(hashTable.isFull());
+    }
+
+    @Test
+    public void testIsNotFullAfterRemove(){
+        HashTable hashTable = new HashTable(3);
+        Student student = new Student(1,"Tick","Ente");
+        hashTable.add(student);
+        hashTable.add(new Student(2,"Trick","Ente"));
+        hashTable.add(new Student(3,"Track","Ente"));
+        hashTable.remove(student);
+        assertFalse(hashTable.isFull());
+    }
+
+    @Test
+    public void testIsEmpty(){
+        HashTable hashTable = new HashTable(10);
+        assertTrue(hashTable.isEmpty());
+    }
 
     @Test
     public void testHashTableSimpleInsert(){
