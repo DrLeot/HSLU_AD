@@ -21,7 +21,6 @@ public class BinaryTree implements TreeInterface{
         }
 
         return insert(root, element); // call insert with context-specific node as root
-
     }
 
     private boolean insert(Node node, int element){
