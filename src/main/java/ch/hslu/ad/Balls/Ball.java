@@ -20,7 +20,10 @@ public class Ball extends Circle implements Runnable{
                 randomColourString());
 
         circle.makeVisible();
-        circle.slowMoveVertical(randomRangeInteger(100,200));
+
+        // pretty annoying because you dont define acceleration or velocity but more like "position where to stop"
+        circle.slowMoveVertical(BallDemo.HEIGHT-circle.getY());
+
 
         if(circle.getY() >= BallDemo.HEIGHT){
             circle.makeInvisible();

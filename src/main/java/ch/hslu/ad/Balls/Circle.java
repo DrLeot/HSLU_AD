@@ -57,6 +57,15 @@ public class Circle {
     }
 
     /**
+     * Returns diameter of the dicle
+     *
+     * @return diameter
+     */
+    public int getDiameter(){
+        return this.diameter;
+    }
+
+    /**
      * Make this circle visible. If it was already visible, do nothing.
      */
     public void makeVisible() {
