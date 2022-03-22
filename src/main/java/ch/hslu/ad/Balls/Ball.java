@@ -21,13 +21,23 @@ public class Ball extends Circle implements Runnable{
 
         circle.makeVisible();
 
-        // pretty annoying because you dont define acceleration or velocity but more like "position where to stop"
-        circle.slowMoveVertical(BallDemo.HEIGHT-circle.getY());
+        // Method a: Define the destination place (Cannot set random velocity)
+        //circle.slowMoveVertical(BallDemo.HEIGHT-circle.getY());
+        //if(circle.getY() >= BallDemo.HEIGHT){
+        //    circle.makeInvisible();
+        //}
 
-
-        if(circle.getY() >= BallDemo.HEIGHT){
-            circle.makeInvisible();
+        // Method b: Define Velocity
+        int velocity = Ball.randomRangeInteger(1,5);
+        while(circle.getY() < BallDemo.HEIGHT-circle.getDiameter()){
+            circle.moveVertical(velocity);
         }
+        while (circle.getDiameter() >= MIN_DIAMETER){
+            circle.changeSize(circle.getDiameter()-1);
+        }
+
+        circle.makeInvisible();
+
     }
 
     public static int randomRangeInteger(int min, int max){

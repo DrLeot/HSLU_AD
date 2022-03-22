@@ -9,7 +9,7 @@ public final class BallDemo {
         Canvas canvas = Canvas.getCanvas();
         Ball ball = new Ball();
 
-        while(true) {
+        for(int i = 0; i<100; i++) {
 
             Thread thread = new Thread(ball,"ball");
             thread.start();
