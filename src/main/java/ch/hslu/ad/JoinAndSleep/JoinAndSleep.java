@@ -1,4 +1,4 @@
-package ch.hslu.JoinAndSleep;
+package ch.hslu.ad.JoinAndSleep;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
