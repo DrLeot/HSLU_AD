@@ -38,7 +38,9 @@ public final class BankAccount {
      * @param amount Einzuzahlender Betrag
      */
     public synchronized void deposite(final int amount) {
-        this.balance += amount;
+        synchronized (this){
+            this.balance += amount;
+        }
     }
 
     /**
@@ -51,8 +53,6 @@ public final class BankAccount {
         synchronized (this){
             this.balance -= amount;
         }
-
-        //this.balance -= amount;
         target.deposite(amount);
     }
 }
