@@ -16,7 +16,7 @@ public class Ball extends Circle implements Runnable{
     public void run() {
 
         Circle circle = new Circle(Ball.randomRangeInteger(MIN_DIAMETER,MAX_DIAMETER),
-                randomRangeInteger(0,BallDemo.WIDTH),randomRangeInteger(0,BallDemo.HEIGHT),
+                randomRangeInteger(0,BallDemo.WIDTH),randomRangeInteger(0,BallDemo.HEIGHT/3),
                 randomColourString());
 
         circle.makeVisible();

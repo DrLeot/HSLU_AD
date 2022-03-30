@@ -11,7 +11,7 @@ public final class BallDemo {
 
         for(int i = 0; i<100; i++) {
 
-            Thread thread = new Thread(ball,"ball");
+            Thread thread = new Thread(ball,"ball" + i);
             thread.start();
             Thread.sleep(500);
         }

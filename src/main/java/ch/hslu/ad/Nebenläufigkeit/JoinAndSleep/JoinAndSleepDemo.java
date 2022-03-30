@@ -39,7 +39,7 @@ public class JoinAndSleepDemo {
             LOG.info("joinAndSleep1 introduced");
             try {
                 LOG.info("joinAndSleep1: join joinAndSleep2");
-                joinAndSleep3.join();
+                joinAndSleep2.join();
                 LOG.info("joinAndSleep1: done join joinAndSleep2");
 
                 LOG.info("joinAndSleep1 sleeping for 2s");
@@ -54,5 +54,19 @@ public class JoinAndSleepDemo {
         joinAndSleep1.start();
         joinAndSleep2.start();
         joinAndSleep3.start();
+
+        try {
+            Thread.sleep(100);
+            joinAndSleep3.interrupt();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        /*try {
+            joinAndSleep1.join();
+        } catch (InterruptedException e) {
+            LOG.info(e);
+        }
+        LOG.info("Finish");*/
     }
 }
