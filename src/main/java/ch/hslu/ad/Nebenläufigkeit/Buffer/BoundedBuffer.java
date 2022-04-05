@@ -52,6 +52,7 @@ public final class BoundedBuffer<T> implements Buffer<T> {
         putSema.acquire();
         synchronized (queue) {
             queue.addFirst(elem);
+            usedSize++;
         }
         takeSema.release();
     }
@@ -62,6 +63,7 @@ public final class BoundedBuffer<T> implements Buffer<T> {
         T elem;
         synchronized (queue) {
             elem = queue.removeLast();
+            usedSize--;
         }
         putSema.release();
         return elem;
@@ -70,29 +72,31 @@ public final class BoundedBuffer<T> implements Buffer<T> {
     @Override
     public boolean put(T elem, long millis) throws InterruptedException {
         while (full()){
-            wait(millis);
+            this.wait(millis);
         }
 
 
         putSema.acquire();
         synchronized (queue) {
             queue.addFirst(elem);
+            usedSize++;
         }
         takeSema.release();
 
-        return true; // TODO
+        return true;
     }
 
     @Override
     public T get(long millis) throws InterruptedException {
         while (empty()) {
-            wait(millis);
+            this.wait(millis);
         }
 
         takeSema.acquire();
         T elem;
         synchronized (queue) {
             elem = queue.removeLast();
+            usedSize--;
         }
         putSema.release();
         return elem;
@@ -119,7 +123,7 @@ public final class BoundedBuffer<T> implements Buffer<T> {
     }
 
     @Override
-    public boolean size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int size() {
+        return this.maxSize;
     }
 }
