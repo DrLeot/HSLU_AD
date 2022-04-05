@@ -70,34 +70,34 @@ public final class BoundedBuffer<T> implements Buffer<T> {
     }
 
     @Override
-    public boolean put(T elem, long millis) throws InterruptedException {
+    public synchronized boolean put(T elem, long millis) throws InterruptedException {
         while (full()){
             this.wait(millis);
+            if (full()){
+                return false;
+            }
         }
 
 
         putSema.acquire();
-        synchronized (queue) {
-            queue.addFirst(elem);
-            usedSize++;
-        }
+        queue.addFirst(elem);
+        usedSize++;
         takeSema.release();
 
         return true;
     }
 
     @Override
-    public T get(long millis) throws InterruptedException {
+    public synchronized T get(long millis) throws InterruptedException {
         while (empty()) {
             this.wait(millis);
         }
 
         takeSema.acquire();
         T elem;
-        synchronized (queue) {
-            elem = queue.removeLast();
-            usedSize--;
-        }
+
+        elem = queue.removeLast();
+        usedSize--;
         putSema.release();
         return elem;
     }
