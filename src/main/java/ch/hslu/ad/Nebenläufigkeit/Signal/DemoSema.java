@@ -44,23 +44,27 @@ public final class DemoSema {
             LOG.debug(e.getMessage());
         }
         try {
-            Semaphore sema = new Semaphore(3, 3);
+            Semaphore sema = new Semaphore(2, 3);
             sema.release();
         } catch (Exception e) {
             LOG.debug(e.getMessage());
         }
+        // Errorous Method where 4 permits are taken where no permit is in Sempaphore
         try {
             Semaphore sema = new Semaphore(0, 3);
             sema.release(4);
         } catch (Exception e) {
             LOG.debug(e.getMessage());
         }
+
+        // Errorous Method call because acquire takes more permits than limit defines
         try {
             Semaphore sema = new Semaphore(3, 3);
             sema.acquire(4);
         } catch (Exception e) {
             LOG.debug(e.getMessage());
         }
+
         try {
             Semaphore sema = new Semaphore(3, 3);
             sema.acquire(-1);

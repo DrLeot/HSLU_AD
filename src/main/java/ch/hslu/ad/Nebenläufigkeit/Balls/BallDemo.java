@@ -9,11 +9,13 @@ public final class BallDemo {
         Canvas canvas = Canvas.getCanvas();
         Ball ball = new Ball();
 
-        for(int i = 0; i<100; i++) {
+        for(int i = 0; i<10; i++) {
 
             Thread thread = new Thread(ball,"ball" + i);
             thread.start();
             Thread.sleep(500);
         }
+
+        System.exit(0);
     }
 }

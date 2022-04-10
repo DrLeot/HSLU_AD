@@ -15,38 +15,37 @@
  */
 package ch.hslu.ad.Nebenläufigkeit.Conclist;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
 /**
- * Produzent, der eine maximale Anzahl Werte produziert und diese in eine Queue speichert.
+ * Konsument, der soviele Integer Werte aus einer Liste liest, wie er nur kann.
  */
-public final class Producer implements Callable<Long> {
+public final class ConsumerQueue implements Callable<Long> {
 
-    private final List<Integer> list;
-    private final int maxRange;
+    private final BlockingQueue<Integer> list;
 
     /**
-     * Erzeugt einen Produzent, der eine bestimmte Anzahl Integer-Werte produziert.
-     * @param list Queue zum Speichern der Integer-Werte.
-     * @param max Anzahl Integer-Werte.
+     * Erzeugt einen Konsumenten, der soviel Integer-Werte ausliest, wie er nur kann.
+     * @param list Queue zum Lesen der Integer-Werte.
      */
-    public Producer(final List<Integer> list, final int max) {
+    public ConsumerQueue(final BlockingQueue<Integer> list) {
         this.list = list;
-        this.maxRange = max;
     }
 
     /**
-     * Liefert die Summe aller zusammengezählter Integer Werte.
+     * Liefert die Summe aller ausgelesener Werte.
      * @return Summe.
-     * @throws java.lang.Exception falls Ausnahmen passieren.
+     * @throws Exception falls Ausnahmen passieren.
      */
     @Override
     public Long call() throws Exception {
         long sum = 0;
-        for(int i = 1; i <= maxRange; i++){
-            list.add(i);
-            sum += i;
+        Iterator<Integer> iterator = list.iterator();
+        while(iterator.hasNext()){
+            sum += iterator.next();
         }
         return sum;
     }

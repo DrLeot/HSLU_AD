@@ -15,14 +15,9 @@
  */
 package ch.hslu.ad.Nebenläufigkeit.Conclist;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.*;
+import java.util.concurrent.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,12 +26,55 @@ import org.apache.logging.log4j.Logger;
  */
 public final class DemoConcurrentList {
 
+    private static final int MAX = 10000;
     private static final Logger LOG = LogManager.getLogger(DemoConcurrentList.class);
 
     /**
      * Privater Konstruktor.
      */
-    private DemoConcurrentList() {
+    private DemoConcurrentList(List<Integer> list){
+        try{
+            final ExecutorService executor = Executors.newCachedThreadPool();
+            final List<Future<Long>> futures = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                futures.add(executor.submit(new Producer(list, MAX)));
+            }
+            Iterator<Future<Long>> iterator = futures.iterator();
+            long totProd = 0;
+            while (iterator.hasNext()) {
+                long sum = iterator.next().get();
+                totProd += sum;
+                LOG.info("prod sum = " + sum);
+            }
+            LOG.info("prod tot = " + totProd);
+            long totCons = executor.submit(new Consumer(list)).get();
+            LOG.info("cons tot = " + totCons);
+            executor.shutdown();
+        }catch (Exception exception){
+            LOG.error(exception);
+        }
+    }
+    private DemoConcurrentList(BlockingQueue<Integer> integerBlockingQueue){
+        try {
+            final ExecutorService executor = Executors.newCachedThreadPool();
+            final List<Future<Long>> futures = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                futures.add(executor.submit(new ProducerQueue(integerBlockingQueue, MAX)));
+            }
+            Iterator<Future<Long>> iterator = futures.iterator();
+            long totProd = 0;
+            while (iterator.hasNext()) {
+                long sum = iterator.next().get();
+                totProd += sum;
+                LOG.info("prod sum = " + sum);
+            }
+            LOG.info("prod tot = " + totProd);
+            long totCons = executor.submit(new ConsumerQueue(integerBlockingQueue)).get();
+            LOG.info("cons tot = " + totCons);
+            executor.shutdown();
+        }catch (Exception exception){
+            LOG.error(exception);
+        }
     }
 
     /**
@@ -46,22 +84,22 @@ public final class DemoConcurrentList {
      * @throws java.util.concurrent.ExecutionException bei Excecution-Fehler.
      */
     public static void main(final String args[]) throws InterruptedException, ExecutionException {
-        final List<Integer> list = new LinkedList<>();
-        final ExecutorService executor = Executors.newCachedThreadPool();
-        final List<Future<Long>> futures = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            futures.add(executor.submit(new Producer(list, 1000)));
-        }
-        Iterator<Future<Long>> iterator = futures.iterator();
-        long totProd = 0;
-        while (iterator.hasNext()) {
-            long sum = iterator.next().get();
-            totProd += sum;
-            LOG.info("prod sum = " + sum);
-        }
-        LOG.info("prod tot = " + totProd);
-        long totCons = executor.submit(new Consumer(list)).get();
-        LOG.info("cons tot = " + totCons);
-        executor.shutdown();
+        long startTime;
+
+        startTime = System.currentTimeMillis();
+        new DemoConcurrentList(new LinkedList<>());
+        LOG.info(System.currentTimeMillis()-startTime+" ms");
+        LOG.info("******************");
+
+        startTime = System.currentTimeMillis();
+        new DemoConcurrentList(Collections.synchronizedList(new LinkedList<>()));
+        LOG.info(System.currentTimeMillis()-startTime+" ms");
+        LOG.info("******************");
+
+        startTime = System.currentTimeMillis();
+        new DemoConcurrentList(new LinkedBlockingDeque<>());
+        LOG.info(System.currentTimeMillis()-startTime+" ms");
+        LOG.info("******************");
     }
+
 }

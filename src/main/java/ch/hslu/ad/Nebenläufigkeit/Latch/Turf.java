@@ -42,7 +42,11 @@ public final class Turf {
             thread = new Thread(new RaceHorse(starterBox), "Horse " + i);
             thread.start();
         }
-        LOG.info("Start...");
-        starterBox.release();
+
+        synchronized (starterBox){
+            LOG.info("Start...");
+            starterBox.release();
+        }
+
     }
 }

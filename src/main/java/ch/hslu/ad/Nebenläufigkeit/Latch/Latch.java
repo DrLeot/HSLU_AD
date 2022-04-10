@@ -33,9 +33,7 @@ public class Latch implements Synch {
 
     @Override
     public synchronized void release() {
-        while(!started){
-            started = true;
-            this.notifyAll();
-        }
+        started = true;
+        this.notifyAll();
     }
 }

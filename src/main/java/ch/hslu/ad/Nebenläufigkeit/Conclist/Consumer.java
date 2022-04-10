@@ -15,6 +15,7 @@
  */
 package ch.hslu.ad.Nebenläufigkeit.Conclist;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -40,6 +41,11 @@ public final class Consumer implements Callable<Long> {
      */
     @Override
     public Long call() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        long sum = 0;
+        Iterator<Integer> iterator = list.iterator();
+        while(iterator.hasNext()){
+            sum += iterator.next();
+        }
+        return sum;
     }
 }
