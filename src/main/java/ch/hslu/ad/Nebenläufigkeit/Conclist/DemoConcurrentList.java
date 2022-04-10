@@ -33,8 +33,9 @@ public final class DemoConcurrentList {
      * Privater Konstruktor.
      */
     private DemoConcurrentList(List<Integer> list){
+        final ExecutorService executor = Executors.newCachedThreadPool();
+
         try{
-            final ExecutorService executor = Executors.newCachedThreadPool();
             final List<Future<Long>> futures = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 futures.add(executor.submit(new Producer(list, MAX)));
@@ -49,14 +50,15 @@ public final class DemoConcurrentList {
             LOG.info("prod tot = " + totProd);
             long totCons = executor.submit(new Consumer(list)).get();
             LOG.info("cons tot = " + totCons);
-            executor.shutdown();
         }catch (Exception exception){
             LOG.error(exception);
+        }finally {
+            executor.shutdown();
         }
     }
     private DemoConcurrentList(BlockingQueue<Integer> integerBlockingQueue){
+        final ExecutorService executor = Executors.newCachedThreadPool();
         try {
-            final ExecutorService executor = Executors.newCachedThreadPool();
             final List<Future<Long>> futures = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 futures.add(executor.submit(new ProducerQueue(integerBlockingQueue, MAX)));
@@ -71,9 +73,10 @@ public final class DemoConcurrentList {
             LOG.info("prod tot = " + totProd);
             long totCons = executor.submit(new ConsumerQueue(integerBlockingQueue)).get();
             LOG.info("cons tot = " + totCons);
-            executor.shutdown();
         }catch (Exception exception){
             LOG.error(exception);
+        }finally {
+            executor.shutdown();
         }
     }
 
