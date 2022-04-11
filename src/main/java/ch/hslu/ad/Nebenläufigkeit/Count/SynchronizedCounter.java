@@ -26,7 +26,7 @@ public final class SynchronizedCounter implements Counter {
      * Erzeugt einen Zähler mit Zählerstand 0.
      */
     public SynchronizedCounter() {
-        counter = 0;
+        this.counter = 0;
     }
 
     /**
@@ -34,7 +34,7 @@ public final class SynchronizedCounter implements Counter {
      */
     @Override
     public synchronized void increment() {
-        counter++;
+        this.counter++;
     }
 
     /**
@@ -42,7 +42,7 @@ public final class SynchronizedCounter implements Counter {
      */
     @Override
     public synchronized void decrement() {
-        counter--;
+        this.counter--;
     }
 
     /**
@@ -50,6 +50,6 @@ public final class SynchronizedCounter implements Counter {
      */
     @Override
     public synchronized int get() {
-        return counter;
+        return this.counter;
     }
 }

@@ -45,7 +45,7 @@ public final class SpeedCount {
      * @param tester Anzahl Tester-Threads.
      * @return Dauer des Tests in mSec.
      */
-    public static long speedTest(Counter counter, int counts, int tester) throws ExecutionException, InterruptedException {
+    public static long speedTest(Counter counter, int counts, int tester) {
         final ExecutorService executor = Executors.newCachedThreadPool();
         final List<Future<Integer>> futureList = new ArrayList<>();
 
@@ -55,9 +55,11 @@ public final class SpeedCount {
         }
 
         for(Future<Integer> future : futureList){
-            if(future.get() != 0){
-                executor.shutdown();
-                return -1; // Data isnt correct, measurement doesnt make any sense
+            try{
+                future.get();
+            }catch (InterruptedException | ExecutionException ex){
+                LOG.debug(ex);
+                return -1;
             }
         }
 
@@ -70,9 +72,9 @@ public final class SpeedCount {
      * Main-Counter-Test.
      * @param args not used.
      */
-    public static void main(final String args[]) throws ExecutionException, InterruptedException {
+    public static void main(final String args[]){
         final int passes = 10;
-        final int tester = 1;
+        final int tester = 10;
         final int counts = 100;
         final Counter counterSync = new SynchronizedCounter();
         long sumSync = 0;

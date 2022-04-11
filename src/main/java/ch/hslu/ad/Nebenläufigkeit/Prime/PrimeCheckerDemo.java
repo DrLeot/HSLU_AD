@@ -14,16 +14,16 @@ public class PrimeCheckerDemo {
     private static final Logger LOG = LogManager.getLogger(PrimeCheckerDemo.class);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        final long start = System.currentTimeMillis();
 
         final ExecutorService executorService = Executors.newCachedThreadPool();
         List<Future<BigInteger>> results = new ArrayList<>();
 
-        final long start = System.currentTimeMillis();
         for(int i = 0; i < NUMBEROFPRIMES; i++){
             results.add(executorService.submit(new PrimeChecker()));
         }
         for (Future<BigInteger> result: results) {
-            LOG.debug(result.get());
+            LOG.info(result.get().toString().substring(0, 20) + "...");
         }
         LOG.debug(System.currentTimeMillis() - start +" ms");
         LOG.debug("*** DONE ***");

@@ -39,6 +39,8 @@ public final class PrimeCheck {
      * @param args not used.
      */
     public static void main(String[] args) {
+        final long start = System.currentTimeMillis();
+
         int n = 1;
         while (n <= 100) {
             BigInteger bi = new BigInteger(1024, new Random());
@@ -47,5 +49,8 @@ public final class PrimeCheck {
                 n++;
             }
         }
+        LOG.debug(System.currentTimeMillis() - start +" ms");
+        LOG.debug("*** DONE ***");
+
     }
 }
