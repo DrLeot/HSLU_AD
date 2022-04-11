@@ -47,10 +47,11 @@ public final class DemoBankAccount {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         final ExecutorService executorService = Executors.newCachedThreadPool();
 
+        final ArrayList<Future<?>> futures = new ArrayList<>();
         final ArrayList<BankAccount> source = new ArrayList<>();
         final ArrayList<BankAccount> target = new ArrayList<>();
         final int amount = 100000;
-        final int number = 15;
+        final int number = 10;
 
         for (int i = 0; i < number; i++) {
             source.add(new BankAccount(amount));
@@ -60,10 +61,20 @@ public final class DemoBankAccount {
             Future<?> futureA = executorService.submit(new AccountTask(source.get(i), target.get(i), amount));
             Future<?> futureB = executorService.submit(new AccountTask(target.get(i), source.get(i), amount));
 
-            if (futureA.get() == null && futureB.get() == null){
-                LOG.info("source({}) = {}; target({}) = {};", i, source.get(i).getBalance(), i, target.get(i).getBalance());
+            futures.add(futureA);
+            futures.add(futureB);
+        }
+        for(Future<?> future : futures){
+            try{
+                future.get();
+            }catch (Exception exception){
+                LOG.error(exception);
             }
         }
+        for (int i = 0; i < number; i++) {
+            LOG.info("source({}) = {}; target({}) = {};", i, source.get(i).getBalance(), i, target.get(i).getBalance());
+        }
+
         executorService.shutdown();
 
     }
