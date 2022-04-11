@@ -39,7 +39,9 @@ public final class DemoBankAccount {
         final ArrayList<BankAccount> source = new ArrayList<>();
         final ArrayList<BankAccount> target = new ArrayList<>();
         final int amount = 100000;
-        final int number = 5;
+        final int number = 10;
+
+        final long startTime = System.currentTimeMillis();
         for (int i = 0; i < number; i++) {
             source.add(new BankAccount(amount));
             target.add(new BankAccount());
@@ -57,5 +59,6 @@ public final class DemoBankAccount {
         for (int i = 0; i < number; i++) {
             LOG.info("source({}) = {}; target({}) = {};", i, source.get(i).getBalance(), i, target.get(i).getBalance());
         }
+        LOG.info(System.currentTimeMillis() - startTime + " ms");
     }
 }
