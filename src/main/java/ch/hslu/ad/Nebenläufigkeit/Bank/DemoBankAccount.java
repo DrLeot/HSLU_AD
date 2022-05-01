@@ -38,7 +38,7 @@ public final class DemoBankAccount {
     public static void main(String[] args) throws InterruptedException {
         final ArrayList<BankAccount> source = new ArrayList<>();
         final ArrayList<BankAccount> target = new ArrayList<>();
-        final int amount = 100000;
+        final int amount = 5_846_587;
         final int number = 10;
 
         final long startTime = System.currentTimeMillis();

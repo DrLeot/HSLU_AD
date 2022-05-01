@@ -15,9 +15,9 @@ public class BubbleSortDemo {
     }
 
     private static void circle(final int n){
-        int[] arraySorted = Sort.getNumberedArray(n);
-        int[] arrayReverseSorted = Sort.getReverseNumberedArray(n);
-        int[] arrayRandom = Sort.getRandomNumberedUniqueArray(n);
+        int[] arraySorted = RandomArrays.getNumberedArray(n);
+        int[] arrayReverseSorted = RandomArrays.getReverseNumberedArray(n);
+        int[] arrayRandom = RandomArrays.getRandomNumberedUniqueArray(n);
 
         LOG.info("n -> {}", n);
 

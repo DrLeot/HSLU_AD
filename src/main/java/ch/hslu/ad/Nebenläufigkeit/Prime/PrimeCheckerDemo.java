@@ -16,7 +16,8 @@ public class PrimeCheckerDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         final long start = System.currentTimeMillis();
 
-        final ExecutorService executorService = Executors.newCachedThreadPool();
+        //final ExecutorService executorService = Executors.newCachedThreadPool();
+        final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
         List<Future<BigInteger>> results = new ArrayList<>();
 
         for(int i = 0; i < NUMBEROFPRIMES; i++){

@@ -19,9 +19,9 @@ public class insertionSortDemo {
     }
 
     private static void circle(final int n){
-        int[] arraySorted = Sort.getNumberedArray(n);
-        int[] arrayReverseSorted = Sort.getReverseNumberedArray(n);
-        int[] arrayRandom = Sort.getRandomNumberedUniqueArray(n);
+        int[] arraySorted = RandomArrays.getNumberedArray(n);
+        int[] arrayReverseSorted = RandomArrays.getReverseNumberedArray(n);
+        int[] arrayRandom = RandomArrays.getRandomNumberedUniqueArray(n);
 
         LOG.info("n -> {}", n);
 
@@ -31,7 +31,7 @@ public class insertionSortDemo {
 
         startTime = System.currentTimeMillis();
         Sort.insertionSort(arrayReverseSorted);
-        LOG.info("Reserve Array: {} ms",System.currentTimeMillis()-startTime);
+        LOG.info("Reverse Array: {} ms",System.currentTimeMillis()-startTime);
 
         startTime = System.currentTimeMillis();
         Sort.insertionSort(arrayRandom);

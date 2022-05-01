@@ -6,41 +6,6 @@ import java.util.Random;
 
 public final class Sort {
 
-
-    public static int getRandomInt(final int min, final int max) {
-        Random random = new Random();
-
-        return random.nextInt((max - min) + 1) + min;
-    }
-    public static int[] getRandomNumberedUniqueArray(final int n){
-        ArrayList<Integer> numbers = new ArrayList<>();
-
-        while (numbers.size() < n) {
-            int random = getRandomInt(1, n);
-
-            if (!numbers.contains(random)) {
-                numbers.add(random);
-            }
-        }
-
-        return numbers.stream().mapToInt(i -> i).toArray();
-    }
-
-    public static int[] getReverseNumberedArray(final int n){
-        int[] ret = new int[n];
-        for(int i = n; i > 0; i--){
-            ret[n-i] = i;
-        }
-        return ret;
-    }
-    public static int[] getNumberedArray(final int n){
-        int[] ret = new int[n];
-        for(int i = 0; i < n; i++){
-            ret[i] = i+1;
-        }
-        return ret;
-    }
-
     public static void bubbleSort(final int[] array){
 
         for (int i = 0; i < array.length - 1; i++) {
@@ -93,4 +58,95 @@ public final class Sort {
 
         System.arraycopy(tmpArray, 1, array, 0, array.length);
     }
+
+    /**
+     * Vertauscht zwei bestimmte Zeichen im Array.
+     *
+     * @param a Zeichen-Array
+     * @param firstIndex Index des ersten Zeichens
+     * @param secondIndex Index des zweiten Zeichens
+     */
+    private static void exchange(final char[] a,
+                                       final int firstIndex,
+                                       final int secondIndex) {
+        char tmp;
+        tmp = a[firstIndex];
+        a[firstIndex] = a[secondIndex];
+        a[secondIndex] = tmp;
+    }
+    private static void exchange(final int[] a,
+                                 final int firstIndex,
+                                 final int secondIndex) {
+        int tmp;
+        tmp = a[firstIndex];
+        a[firstIndex] = a[secondIndex];
+        a[secondIndex] = tmp;
+    }
+
+    public static void quickSort(final int[] a, final int left, final int right) {
+        int up = left;
+        int down = right - 1;
+        int t = a[right];
+        boolean allChecked = false;
+        do {
+            while (a[up] < t) {
+                up++;
+            }
+            while ((a[down] >= t) && (down > up)) {
+                down--;
+            }
+            if (down > up) {
+                exchange(a, up, down);
+                up++; down--;
+            } else {
+                allChecked = true;
+            }
+        } while (!allChecked);
+        exchange(a, up, right);
+
+        if (left < (up - 1)){
+            quickSort(a, left, (up - 1));
+        }
+        if ((up + 1) < right){
+            quickSort(a, (up + 1), right);
+        }
+    }
+
+    public static void quickSort(final int[] a){
+        quickSort(a,0,a.length-1);
+    }
+
+    public static void quickSort(final char[] a, final int left, final int right) {
+        int up = left;
+        int down = right - 1;
+        char t = a[right];
+        boolean allChecked = false;
+        do {
+            while (a[up] < t) {
+                up++;
+            }
+            while ((a[down] >= t) && (down > up)) {
+                down--;
+            }
+            if (down > up) {
+                exchange(a, up, down);
+                up++; down--;
+            } else {
+                allChecked = true;
+            }
+        } while (!allChecked);
+        exchange(a, up, right);
+
+        if (left <= (up - 1)){
+            quickSort(a, left, (up - 1));
+        }
+        if ((up + 1) <= right){
+            quickSort(a, (up + 1), right);
+        }
+    }
+
+    public static void quickSort(final char[] a){
+        quickSort(a,0,a.length-1);
+    }
+
 }

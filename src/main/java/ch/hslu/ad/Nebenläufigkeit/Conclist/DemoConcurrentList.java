@@ -26,7 +26,8 @@ import org.apache.logging.log4j.Logger;
  */
 public final class DemoConcurrentList {
 
-    private static final int MAX = 10000;
+    private static final int MAX = 43815;
+    private static final int NUMBEROFTHREADS = 7;
     private static final Logger LOG = LogManager.getLogger(DemoConcurrentList.class);
 
     /**
@@ -37,7 +38,7 @@ public final class DemoConcurrentList {
 
         try{
             final List<Future<Long>> futures = new ArrayList<>();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < NUMBEROFTHREADS; i++) {
                 futures.add(executor.submit(new Producer(list, MAX)));
             }
             Iterator<Future<Long>> iterator = futures.iterator();
@@ -60,7 +61,7 @@ public final class DemoConcurrentList {
         final ExecutorService executor = Executors.newCachedThreadPool();
         try {
             final List<Future<Long>> futures = new ArrayList<>();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < NUMBEROFTHREADS; i++) {
                 futures.add(executor.submit(new ProducerQueue(integerBlockingQueue, MAX)));
             }
             Iterator<Future<Long>> iterator = futures.iterator();

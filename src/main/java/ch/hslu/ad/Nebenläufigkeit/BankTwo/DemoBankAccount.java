@@ -16,6 +16,7 @@
 package ch.hslu.ad.Nebenläufigkeit.BankTwo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -50,7 +51,7 @@ public final class DemoBankAccount {
         final ArrayList<Future<?>> futures = new ArrayList<>();
         final ArrayList<BankAccount> source = new ArrayList<>();
         final ArrayList<BankAccount> target = new ArrayList<>();
-        final int amount = 100000;
+        final int amount = 5_846_587;
         final int number = 10;
 
         final long startTime = System.currentTimeMillis();
