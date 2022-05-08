@@ -13,6 +13,7 @@ public class QuickSortDemo {
         circle(200_000);
         circle(400_000);
 
+
         LOG.info("Ints");
         circleInt(10_000);
         circleInt(20_000);
